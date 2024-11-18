@@ -3,7 +3,7 @@ import { TamaguiProvider, YStack, Input, Button, Text } from 'tamagui';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { router } from 'expo-router';
 import { Alert } from 'react-native';
-// Removed imports related to Firebase and Google authentication
+import AsyncStorage from '@react-native-async-storage/async-storage'; // Import AsyncStorage
 
 export default function AuthScreen() {
   const [isLogin, setIsLogin] = useState(true);
@@ -11,7 +11,16 @@ export default function AuthScreen() {
   const [password, setPassword] = useState('password123');
   const [error, setError] = useState<string | null>(null);
 
-  const handleAuthenticationSuccess = () => {
+  const handleAuthenticationSuccess = async () => {
+    // Clear AsyncStorage upon successful login
+    try {
+      await AsyncStorage.clear();
+      console.log('AsyncStorage cleared upon login');
+    } catch (e) {
+      console.error('Failed to clear AsyncStorage:', e);
+    }
+
+    // Navigate to the main app
     router.replace('/(tabs)');
   };
 

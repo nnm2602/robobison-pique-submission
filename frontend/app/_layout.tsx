@@ -1,15 +1,15 @@
+// RootLayout.jsx or RootLayout.tsx
+
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import 'react-native-reanimated';
 import { useColorScheme } from '@/hooks/useColorScheme';
 import { TamaguiProvider, createTamagui } from 'tamagui';
 import { config } from '@tamagui/config/v3';
-import { onAuthStateChanged } from 'firebase/auth';
-import { auth } from '../firebase';
-import AuthScreen from './index'; // Adjust this path to where your AuthScreen is located
+
 import { Tabs } from 'expo-router';
 import React from 'react';
 import { StatusBar } from 'react-native';
@@ -17,7 +17,7 @@ import { StatusBar } from 'react-native';
 import { TabBarIcon } from '@/components/navigation/TabBarIcon';
 import { Colors } from '@/constants/Colors';
 
-import ToastProvider from "./ToastProvider"
+import ToastProvider from "./ToastProvider";
 import { ChatProvider } from './ChatContext';
 
 // you usually export this from a tamagui.config.ts file
@@ -41,22 +41,13 @@ export default function RootLayout() {
     Inter: require('../assets/fonts/Inter-Regular.ttf'),
   });
 
-  const [isLoggedIn, setIsLoggedIn] = useState<boolean | null>(null);
-
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      setIsLoggedIn(!!user);
-    });
-    return () => unsubscribe();
-  }, []);
-
   useEffect(() => {
     if (fontsLoaded) {
       SplashScreen.hideAsync();
     }
   }, [fontsLoaded]);
 
-  if (!fontsLoaded || isLoggedIn === null) {
+  if (!fontsLoaded) {
     return null;
   }
 
@@ -75,11 +66,7 @@ export default function RootLayout() {
                 headerShown: false, // Hide header in all stack screens
               }}
             >
-              {!isLoggedIn ? (
-                <Stack.Screen name="index" options={{ headerShown: false }} />
-              ) : (
-                <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-              )}
+              <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
               <Stack.Screen name="+not-found" options={{ headerShown: false }} />
             </Stack>
           </ToastProvider>
