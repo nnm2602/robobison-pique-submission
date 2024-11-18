@@ -1,0 +1,47 @@
+{
+  "expo": {
+    "name": "Frontend",
+    "slug": "Frontend",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/images/icon.png",
+    "scheme": "myapp",
+    "userInterfaceStyle": "automatic",
+    "splash": {
+      "image": "./assets/images/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "plugins": [
+      "@react-native-google-signin/google-signin"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.pique.piqueApp"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/images/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      },
+      "package": "com.pique.piqueApp"
+    },
+    "androidStatusBar": {
+      "backgroundColor": "#00000000", 
+      "translucent": true,
+      "barStyle": "light-content"
+    },
+    "web": {
+      "bundler": "metro",
+      "output": "static",
+      "favicon": "./assets/images/favicon.png"
+    },
+    "plugins": [
+      "expo-router",
+      "expo-font"
+    ],
+    "experiments": {
+      "typedRoutes": true
+    }
+  }
+}
